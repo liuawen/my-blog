@@ -15,7 +15,9 @@ import org.commonmark.renderer.html.HtmlRenderer;
 import java.util.*;
 
 /**
- * Created by limi on 2017/10/22.
+ * @author : Liu Awen
+ * @create : 2020-02-14
+ * @describe:
  */
 public class MarkdownUtils {
 
@@ -50,6 +52,7 @@ public class MarkdownUtils {
                 .extensions(headingAnchorExtensions)
                 .extensions(tableExtension)
                 .attributeProviderFactory(new AttributeProviderFactory() {
+                    @Override
                     public AttributeProvider create(AttributeProviderContext context) {
                         return new CustomAttributeProvider();
                     }
@@ -81,7 +84,7 @@ public class MarkdownUtils {
                 "| 斯维尔多  | 士大夫  | f啊    |\n" +
                 "| 阿什顿发  | 非固定杆 | 撒阿什顿发 |\n" +
                 "\n";
-        String a = "[imCoding 爱编程](http://www.lirenmi.cn)";
+        String a = "[imCoding baidu](http://www.baidu.cn)";
         System.out.println(markdownToHtmlExtensions(a));
     }
 }

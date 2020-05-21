@@ -11,25 +11,25 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by limi on 2017/10/13.
+ * @author : Liu Awen
+ * @create : 2020-02-06
+ * @describe: @ControllerAdvice 拦截所有@Controller注解的控制类
  */
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-
+    private Logger logger= LoggerFactory.getLogger(this.getClass());
     @ExceptionHandler(Exception.class)
-    public ModelAndView exceptionHander(HttpServletRequest request, Exception e) throws Exception {
-        logger.error("Requst URL : {}，Exception : {}", request.getRequestURL(),e);
-
-        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) {
+    public ModelAndView exceptionHandler(HttpServletRequest request,Exception e) throws Exception {
+        logger.error("Request URL : {}, Exception : {}",request.getRequestURL(),e);
+        //判断异常是否自定义被指定，如果被指定则不为空，抛出被指定异常
+        if (AnnotationUtils.findAnnotation(e.getClass(),
+                ResponseStatus.class) != null) {
             throw e;
         }
-
-        ModelAndView mv = new ModelAndView();
+        ModelAndView mv=new ModelAndView();
         mv.addObject("url",request.getRequestURL());
-        mv.addObject("exception", e);
+        mv.addObject("Exception",e);
         mv.setViewName("error/error");
         return mv;
     }

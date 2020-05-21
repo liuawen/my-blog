@@ -4,7 +4,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by limi on 2017/10/15.
+ * @author : Liu Awen
+ * @create : 2020-02-08
+ * @describe:
  */
 public class MD5Utils {
 
@@ -22,10 +24,12 @@ public class MD5Utils {
             StringBuffer buf = new StringBuffer("");
             for (int offset = 0; offset < byteDigest.length; offset++) {
                 i = byteDigest[offset];
-                if (i < 0)
+                if (i < 0) {
                     i += 256;
-                if (i < 16)
+                }
+                if (i < 16) {
                     buf.append("0");
+                }
                 buf.append(Integer.toHexString(i));
             }
             //32位加密
@@ -41,6 +45,6 @@ public class MD5Utils {
 
 
     public static void main(String[] args) {
-        System.out.println(code("111111"));
+        System.out.println(code("abc123"));
     }
 }

@@ -1,8 +1,9 @@
 package com.awen.web;
 
-import com.awen.po.Tag;
+import com.awen.pojo.Tag;
 import com.awen.service.BlogService;
 import com.awen.service.TagService;
+import com.awen.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/23.
+ * @author : Liu Awen
+ * @create : 2020-02-15
+ * @describe:
  */
 @Controller
 public class TagShowController {
@@ -28,13 +31,15 @@ public class TagShowController {
 
     @GetMapping("/tags/{id}")
     public String tags(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
-                        @PathVariable Long id, Model model) {
+                       @PathVariable Long id, Model model) {
         List<Tag> tags = tagService.listTagTop(10000);
         if (id == -1) {
            id = tags.get(0).getId();
         }
+        BlogQuery blogQuery = new BlogQuery();
+        blogQuery.setPublished(true);
         model.addAttribute("tags", tags);
-        model.addAttribute("page", blogService.listBlog(id,pageable));
+        model.addAttribute("page", blogService.listBlog(id,pageable,blogQuery));
         model.addAttribute("activeTagId", id);
         return "tags";
     }

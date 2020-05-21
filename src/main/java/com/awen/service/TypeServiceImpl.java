@@ -1,8 +1,8 @@
 package com.awen.service;
 
-import com.awen.NotFoundException;
 import com.awen.dao.TypeRepository;
-import com.awen.po.Type;
+import com.awen.handler.NotFoundException;
+import com.awen.pojo.Type;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,10 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/16.
+ * @author : Liu Awen
+ * @create : 2020-02-08
+ * @describe:
  */
 @Service
-public class TypeServiceImpl implements TypeService {
+public class TypeServiceImpl implements TypeService{
 
     @Autowired
     private TypeRepository typeRepository;
@@ -29,12 +31,9 @@ public class TypeServiceImpl implements TypeService {
         return typeRepository.save(type);
     }
 
-    @Transactional
     @Override
     public Type getType(Long id) {
-
-//        return typeRepository.findOne(id);
-        return typeRepository.findById(id).get();
+        return typeRepository.findOne(id);
     }
 
     @Override
@@ -42,7 +41,6 @@ public class TypeServiceImpl implements TypeService {
         return typeRepository.findByName(name);
     }
 
-    @Transactional
     @Override
     public Page<Type> listType(Pageable pageable) {
         return typeRepository.findAll(pageable);
@@ -53,36 +51,27 @@ public class TypeServiceImpl implements TypeService {
         return typeRepository.findAll();
     }
 
-
     @Override
     public List<Type> listTypeTop(Integer size) {
-//        Sort sort = new Sort(Sort.Direction.DESC,"blogs.size");
-        Sort sort = Sort.by(Sort.Direction.DESC,"blogs.size");
-//        Pageable pageable = new PageRequest(0,size,sort);
-        Pageable pageable = PageRequest.of(0,size,sort);
+        Sort sort=new Sort(Sort.Direction.DESC,"blogs.size");
+        Pageable pageable=new PageRequest(0,size,sort);
         return typeRepository.findTop(pageable);
     }
-
 
     @Transactional
     @Override
     public Type updateType(Long id, Type type) {
-//        Type t = typeRepository.findOne(id);
-        Type t = typeRepository.findById(id).get();
-        if (t == null) {
+        Type t=typeRepository.findOne(id);
+        if(t==null){
             throw new NotFoundException("不存在该类型");
         }
-        BeanUtils.copyProperties(type,t);
+        BeanUtils.copyProperties(type,t); //将type里面的值赋值给t
         return typeRepository.save(t);
     }
-
-
 
     @Transactional
     @Override
     public void deleteType(Long id) {
-
-//        typeRepository.delete(id);
-        typeRepository.deleteById(id);
+        typeRepository.delete(id);
     }
 }

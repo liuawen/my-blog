@@ -1,17 +1,19 @@
 package com.awen.service;
 
-import com.awen.po.Tag;
+import com.awen.pojo.Tag;
+import com.awen.pojo.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/16.
+ * @author : Liu Awen
+ * @create : 2020-02-12 - 0:06
+ * @describe:
  */
 public interface TagService {
-
-    Tag saveTag(Tag type);
+    Tag saveTag(Tag tag);
 
     Tag getTag(Long id);
 
@@ -25,7 +27,7 @@ public interface TagService {
 
     List<Tag> listTag(String ids);
 
-    Tag updateTag(Long id, Tag type);
+    Tag updateTag(Long id, Tag tag);
 
     void deleteTag(Long id);
 }

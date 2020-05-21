@@ -1,6 +1,6 @@
 package com.awen.service;
 
-import com.awen.po.Blog;
+import com.awen.pojo.Blog;
 import com.awen.vo.BlogQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Liu Awen Email:willowawen@gmail.com
- * @create 2019/04/28
+ * @author : Liu Awen
+ * @create : 2020-02-12 - 0:57
+ * @describe:
  */
 public interface BlogService {
 
@@ -18,23 +19,26 @@ public interface BlogService {
 
     Blog getAndConvert(Long id);
 
-    Page<Blog> listBlog(Pageable pageable,BlogQuery blog);
+    Page<Blog> listBlog(Pageable pageable, BlogQuery blog); //Blog封装了查询博客的过滤条件
+
 
     Page<Blog> listBlog(Pageable pageable);
 
-    Page<Blog> listBlog(Long tagId,Pageable pageable);
+    Page<Blog> listBlog(Long tagId, Pageable pageable, BlogQuery blog);
 
-    Page<Blog> listBlog(String query,Pageable pageable);
+    Page<Blog> listBlog(String query, Pageable pageable);
 
     List<Blog> listRecommendBlogTop(Integer size);
 
-    Map<String,List<Blog>> archiveBlog();
+    List<Blog> listNewBlog(Integer size);
 
-    Long countBlog();
+    Map<String,List<Blog>> archiveBlog();
 
     Blog saveBlog(Blog blog);
 
-    Blog updateBlog(Long id,Blog blog);
+    Blog updateBlog(Long id, Blog blog);
 
     void deleteBlog(Long id);
+
+    Long countBlog();
 }

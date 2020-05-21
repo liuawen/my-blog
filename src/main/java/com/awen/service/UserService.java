@@ -1,9 +1,11 @@
 package com.awen.service;
 
-import com.awen.po.User;
+import com.awen.pojo.User;
 
 /**
- * Created by limi on 2017/10/15.
+ * @author : Liu Awen
+ * @create : 2020-02-08
+ * @describe:
  */
 public interface UserService {
 

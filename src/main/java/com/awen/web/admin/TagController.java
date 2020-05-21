@@ -1,6 +1,6 @@
 package com.awen.web.admin;
 
-import com.awen.po.Tag;
+import com.awen.pojo.Tag;
 import com.awen.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -18,9 +18,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 /**
- * Created by limi on 2017/10/16.
+ * @author : Liu Awen
+ * @create : 2020-02-12
+ * @describe:
  */
-
 @Controller
 @RequestMapping("/admin")
 public class TagController {
@@ -30,7 +31,7 @@ public class TagController {
 
     @GetMapping("/tags")
     public String tags(@PageableDefault(size = 10,sort = {"id"},direction = Sort.Direction.DESC)
-                                    Pageable pageable, Model model) {
+                               Pageable pageable, Model model) {
         model.addAttribute("page",tagService.listTag(pageable));
         return "admin/tags";
     }
@@ -52,7 +53,7 @@ public class TagController {
     public String post(@Valid Tag tag,BindingResult result, RedirectAttributes attributes) {
         Tag tag1 = tagService.getTagByName(tag.getName());
         if (tag1 != null) {
-            result.rejectValue("name","nameError","不能添加重复的分类");
+            result.rejectValue("name","nameError","不能添加重复的标签");
         }
         if (result.hasErrors()) {
             return "admin/tags-input";
@@ -71,7 +72,7 @@ public class TagController {
     public String editPost(@Valid Tag tag, BindingResult result,@PathVariable Long id, RedirectAttributes attributes) {
         Tag tag1 = tagService.getTagByName(tag.getName());
         if (tag1 != null) {
-            result.rejectValue("name","nameError","不能添加重复的分类");
+            result.rejectValue("name","nameError","不能添加重复的标签");
         }
         if (result.hasErrors()) {
             return "admin/tags-input";
@@ -94,3 +95,4 @@ public class TagController {
 
 
 }
+

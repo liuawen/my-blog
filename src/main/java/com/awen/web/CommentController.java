@@ -1,7 +1,7 @@
 package com.awen.web;
 
-import com.awen.po.Comment;
-import com.awen.po.User;
+import com.awen.pojo.Comment;
+import com.awen.pojo.User;
 import com.awen.service.BlogService;
 import com.awen.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpSession;
 
 /**
- * Created by limi on 2017/10/22.
+ * @author : Liu Awen
+ * @create : 2020-02-15
+ * @describe:
  */
 @Controller
 public class CommentController {
-
     @Autowired
     private CommentService commentService;
 
@@ -28,6 +29,9 @@ public class CommentController {
 
     @Value("${comment.avatar}")
     private String avatar;
+
+    @Value("${admin.openid}")
+    private String adminOpenid;
 
     @GetMapping("/comments/{blogId}")
     public String comments(@PathVariable Long blogId, Model model) {
@@ -40,17 +44,23 @@ public class CommentController {
     public String post(Comment comment, HttpSession session) {
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.getBlog(blogId));
-        User user = (User) session.getAttribute("user");
-        if (user != null) {
-            comment.setAvatar(user.getAvatar());
-            comment.setAdminComment(true);
+        String loginStatus = (String) session.getAttribute("loginStatus");
+        if (loginStatus != null) {
+            String avatar = (String) session.getAttribute("avatar");
+            String openid = (String) session.getAttribute("openid");
+            comment.setAvatar(avatar);
+            comment.setAdminComment(1);
+            /*判断是否为管理员评论*/
+            if(adminOpenid.equals(openid)){
+                comment.setAdminComment(2);
+            }
+            System.out.println(openid);
         } else {
+            comment.setAdminComment(0);
             comment.setAvatar(avatar);
         }
         commentService.saveComment(comment);
         return "redirect:/comments/" + blogId;
     }
-
-
 
 }

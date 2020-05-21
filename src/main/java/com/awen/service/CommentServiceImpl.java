@@ -1,7 +1,7 @@
 package com.awen.service;
 
 import com.awen.dao.CommentRepository;
-import com.awen.po.Comment;
+import com.awen.pojo.Comment;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -13,36 +13,36 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/22.
+ * @author : Liu Awen
+ * @create : 2020-02-15
+ * @describe:
  */
 @Service
-public class CommentServiceImpl implements CommentService {
-
+public class CommentServiceImpl implements CommentService{
     @Autowired
     private CommentRepository commentRepository;
 
     @Override
     public List<Comment> listCommentByBlogId(Long blogId) {
-//        Sort sort = new Sort("createTime");
-        Sort sort = Sort.by("createTime");
+        Sort sort = new Sort("createTime");
         List<Comment> comments = commentRepository.findByBlogIdAndParentCommentNull(blogId,sort);
         return eachComment(comments);
     }
+
+
 
     @Transactional
     @Override
     public Comment saveComment(Comment comment) {
         Long parentCommentId = comment.getParentComment().getId();
         if (parentCommentId != -1) {
-//            comment.setParentComment(commentRepository.findOne(parentCommentId));
-            comment.setParentComment(commentRepository.findById(parentCommentId).get());
+            comment.setParentComment(commentRepository.findOne(parentCommentId));
         } else {
             comment.setParentComment(null);
         }
         comment.setCreateTime(new Date());
         return commentRepository.save(comment);
     }
-
 
     /**
      * 循环每个顶级的评论节点
@@ -71,6 +71,7 @@ public class CommentServiceImpl implements CommentService {
         for (Comment comment : comments) {
             List<Comment> replys1 = comment.getReplyComments();
             for(Comment reply1 : replys1) {
+                tempReplys.add(reply1);
                 //循环迭代，找出子代，存放在tempReplys中
                 recursively(reply1);
             }
@@ -89,7 +90,7 @@ public class CommentServiceImpl implements CommentService {
      * @return
      */
     private void recursively(Comment comment) {
-        tempReplys.add(comment);//顶节点添加到临时存放集合
+        //tempReplys.add(comment);//顶节点添加到临时存放集合
         if (comment.getReplyComments().size()>0) {
             List<Comment> replys = comment.getReplyComments();
             for (Comment reply : replys) {
@@ -100,4 +101,5 @@ public class CommentServiceImpl implements CommentService {
             }
         }
     }
+
 }

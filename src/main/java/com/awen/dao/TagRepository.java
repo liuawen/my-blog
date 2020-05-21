@@ -1,6 +1,6 @@
 package com.awen.dao;
 
-import com.awen.po.Tag;
+import com.awen.pojo.Tag;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,8 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 /**
- * @author Liu Awen Email:willowawen@gmail.com
- * @create 2020-05-16 8:57
+ * @author : Liu Awen
+ * @create : 2020-02-12 - 0:05
+ * @describe:
  */
 public interface TagRepository extends JpaRepository<Tag,Long> {
 
@@ -17,4 +18,5 @@ public interface TagRepository extends JpaRepository<Tag,Long> {
 
     @Query("select t from Tag t")
     List<Tag> findTop(Pageable pageable);
+
 }

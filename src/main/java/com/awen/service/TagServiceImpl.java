@@ -1,8 +1,8 @@
 package com.awen.service;
 
-import com.awen.NotFoundException;
 import com.awen.dao.TagRepository;
-import com.awen.po.Tag;
+import com.awen.handler.NotFoundException;
+import com.awen.pojo.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,10 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/16.
+ * @author : Liu Awen
+ * @create : 2020-02-12
+ * @describe:
  */
 @Service
-public class TagServiceImpl implements TagService {
+public class TagServiceImpl implements TagService{
 
     @Autowired
     private TagRepository tagRepository;
@@ -30,11 +32,9 @@ public class TagServiceImpl implements TagService {
         return tagRepository.save(tag);
     }
 
-    @Transactional
     @Override
     public Tag getTag(Long id) {
-//        return tagRepository.findOne(id);
-        return tagRepository.findById(id).get();
+        return tagRepository.findOne(id);
     }
 
     @Override
@@ -42,7 +42,6 @@ public class TagServiceImpl implements TagService {
         return tagRepository.findByName(name);
     }
 
-    @Transactional
     @Override
     public Page<Tag> listTag(Pageable pageable) {
         return tagRepository.findAll(pageable);
@@ -55,21 +54,18 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<Tag> listTagTop(Integer size) {
-//        Sort sort = new Sort(Sort.Direction.DESC, "blogs.size");
-        Sort sort = Sort.by(Sort.Direction.DESC, "blogs.size");
-//        Pageable pageable = new PageRequest(0, size, sort);
-        Pageable pageable = PageRequest.of(0, size, sort);
+        Sort sort=new Sort(Sort.Direction.DESC,"blogs.size");
+        Pageable pageable=new PageRequest(0,size,sort);
         return tagRepository.findTop(pageable);
     }
 
-
     @Override
-    public List<Tag> listTag(String ids) { //1,2,3
-//        return tagRepository.findAll(convertToList(ids));
-        return tagRepository.findAllById(convertToList(ids));
+    public List<Tag> listTag(String ids) { //前端页面传递字符串参数1.2.3...，需转成数组类型作为查询条件
+        List<Long> tagIds = convertToList(ids);
+        return tagRepository.findAll(tagIds);
     }
 
-    private List<Long> convertToList(String ids) {
+    private List<Long> convertToList(String ids) { //将字符串转换为一个数组list
         List<Long> list = new ArrayList<>();
         if (!"".equals(ids) && ids != null) {
             String[] idarray = ids.split(",");
@@ -80,26 +76,20 @@ public class TagServiceImpl implements TagService {
         return list;
     }
 
-
     @Transactional
     @Override
     public Tag updateTag(Long id, Tag tag) {
-//        Tag t = tagRepository.findOne(id);
-        Tag t = tagRepository.findById(id).get();
-        if (t == null) {
+        Tag t=tagRepository.findOne(id);
+        if(t==null){
             throw new NotFoundException("不存在该标签");
         }
-        BeanUtils.copyProperties(tag,t);
+        BeanUtils.copyProperties(tag,t); //将tag里面的值赋值给t
         return tagRepository.save(t);
     }
-
-
 
     @Transactional
     @Override
     public void deleteTag(Long id) {
-
-//        tagRepository.delete(id);
-        tagRepository.deleteById(id);
+        tagRepository.delete(id);
     }
 }

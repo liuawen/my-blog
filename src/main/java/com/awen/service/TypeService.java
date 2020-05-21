@@ -1,13 +1,15 @@
 package com.awen.service;
 
-import com.awen.po.Type;
+import com.awen.pojo.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/16.
+ * @author : Liu Awen
+ * @create : 2020-02-08
+ * @describe:
  */
 public interface TypeService {
 
@@ -23,7 +25,7 @@ public interface TypeService {
 
     List<Type> listTypeTop(Integer size);
 
-    Type updateType(Long id,Type type);
+    Type updateType(Long id, Type type);
 
     void deleteType(Long id);
 }

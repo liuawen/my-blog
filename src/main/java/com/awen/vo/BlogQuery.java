@@ -1,13 +1,33 @@
 package com.awen.vo;
 
 /**
- * Created by limi on 2017/10/20.
+ * @author : Liu Awen
+ * @create : 2020-02-12
+ * @describe: 自定义的查询条件实体类
  */
 public class BlogQuery {
 
     private String title;
     private Long typeId;
     private boolean recommend;
+    private boolean published;
+    private boolean draft; //判断博客是否是草稿状态，后台进行查询草稿功能
+
+    public boolean isDraft() {
+        return draft;
+    }
+
+    public void setDraft(boolean draft) {
+        this.draft = draft;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
 
     public BlogQuery() {
     }

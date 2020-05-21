@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/21.
+ * @author : Liu Awen
+ * @create : 2020-02-13
+ * @describe:
  */
 public class MyBeanUtils {
 

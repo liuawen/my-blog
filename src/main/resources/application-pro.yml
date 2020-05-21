@@ -1,8 +1,7 @@
 spring:
   datasource:
-#    driver-class-name: com.mysql.jdbc.Driver
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.99.254.180/myblog?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     username: root
     password: 123456
   jpa:
@@ -13,11 +12,8 @@ spring:
 logging:
   level:
     root: warn
-    com.lrm: info
+    com.xsh: info
   file: log/blog-pro.log
 
-
-
-
-
-
+server:
+  port: 8080

@@ -1,11 +1,13 @@
 package com.awen.service;
 
-import com.awen.po.Comment;
+import com.awen.pojo.Comment;
 
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/22.
+ * @author : Liu Awen
+ * @create : 2020-02-15
+ * @describe:
  */
 public interface CommentService {
 

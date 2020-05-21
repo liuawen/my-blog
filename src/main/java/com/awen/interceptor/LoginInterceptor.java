@@ -6,16 +6,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by limi on 2017/10/15.
+ * @author : Liu Awen
+ * @create : 2020-02-08
+ * @describe: 登录拦截器，防止未登录状态下直接输入地址访问后台
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
-
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/admin");
+        //判断session中是否有user,如果为空则是未登录状态
+        if(request.getSession().getAttribute("user")==null){
+            response.sendRedirect("/admin"); //重定向到admin首页
             return false;
         }
         return true;

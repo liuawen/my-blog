@@ -5,16 +5,19 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * Created by limi on 2017/10/15.
+ * @author : Liu Awen
+ * @create : 2020-02-08
+ * @describe: Web配置类
  */
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        /*配置LoginInterceptor拦截器的拦截路径*/
         registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/admin/**")
-                .excludePathPatterns("/admin")
-                .excludePathPatterns("/admin/login");
+                .addPathPatterns("/admin/**") //拦截admin下面的所有
+                .excludePathPatterns("/admin") //不拦截admin登录页面
+                .excludePathPatterns("/admin/login"); //不拦截登录时的post请求页面，否则被拦截无法登录
     }
 }
