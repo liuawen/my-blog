@@ -36,6 +36,7 @@
       <a href="#" target="_blank" th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="mini clone icon"></i>&nbsp;归档</a>
       <a href="#" target="_blank" th:href="@{/Messages}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="mini envelope outline icon"></i>&nbsp;留言</a>
       <a href="#" target="_blank" th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="mini info icon"></i>关于我</a>
+<!--      <a href="#" class="active m-item item m-mobile-hide" th:href="@{/picture}"><i class="image icon"></i>照片墙</a>-->
       <a href="http://music.liuawen.top" class="m-item item m-mobile-hide" th:classappend="${n==7} ? 'active'"><i class="mini music icon"></i>&nbsp;在线音乐</a>
 <!--      <a href="http://netdisk.xiongsihao.com" class="m-item item m-mobile-hide" th:classappend="${n==8} ? 'active'"><i class="mini save icon"></i>&nbsp;云盘</a>-->
       <a href="http://netdisk.liuawen.top" class="m-item item m-mobile-hide" th:classappend="${n==8} ? 'active'"><i class="mini save icon"></i>&nbsp;云盘</a>
@@ -118,8 +119,9 @@
           <div class="ui inverted link list" th:fragment="newblogList">
             <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
             <!--/*-->
-            <a href="#" class="item m-text-thin">用户故事（User Story）</a>
-            <a href="#" class="item m-text-thin">用户故事（User Story）</a>
+<!--            <a href="#" class="item m-text-thin">用户故事（User Story）</a>-->
+            <a href="#" class="item m-text-thin">渐若窥宏大</a>
+            <a href="#" class="item m-text-thin">博客博客</a>
             <!--*/-->
           </div>
         </div>

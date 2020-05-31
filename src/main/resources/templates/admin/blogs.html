@@ -21,7 +21,7 @@
           <div class="ui dropdown  item">
             <div class="text">
               <img class="ui avatar image" src="https://unsplash.it/100/100?image=1005">
-              Xiong_sh
+              Liu Awen
             </div>
             <i class="dropdown icon"></i>
             <div class="menu">
@@ -63,6 +63,7 @@
                   <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
                   <!--/*-->
                   <div class="item" data-value="2">开发者手册</div>
+                  <div class="item" data-value="3">记录</div>
                   <!--*/-->
                 </div>
               </div>
@@ -107,7 +108,7 @@
             <td th:text="${blog.type.name}">认知升级</td>
             <td th:text="${blog.recommend} ? '是':'否'">是</td>
             <td th:text="${blog.published} ? '发布':'草稿'">草稿</td>
-            <td th:text="${blog.updateTime}">2017-10-02 09:45</td>
+            <td th:text="${blog.updateTime}">2017-09-01 08:00 </td>
             <td>
               <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
               <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui mini red basic button">删除</a>

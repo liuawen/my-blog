@@ -7,9 +7,11 @@ package com.awen.vo;
  */
 public class GitHubConstant {
     // 这里填写在GitHub上注册应用时候获得 CLIENT ID
-    public static final String  CLIENT_ID="Iv1.5f8c132f227f383c";
+//    public static final String  CLIENT_ID="Iv1.5f8c132f227f383c";
+    public static final String  CLIENT_ID="648869a59dca36de3a07";
     //这里填写在GitHub上注册应用时候获得 CLIENT_SECRET
     public static final String CLIENT_SECRET="755c85b587ee2734cf59572768bdd623da0b61ea";
+//    public static final String CLIENT_SECRET="1d32d8e8cf662adb4f1681eacdd02de1017b7d04";
     // 回调路径
     public static final String CALLBACK = "http://liuawen.top/github/callback";
 
